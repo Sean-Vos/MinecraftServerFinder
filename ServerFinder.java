@@ -16,6 +16,7 @@ public class ServerFinder
 
     private static ListServer FoundServerPage;
 
+    //parse the ip input file and store all Ips that are going to be searched in memory
     private static boolean ParseInput(String FileSource)
     {
         try
@@ -175,6 +176,7 @@ public class ServerFinder
         return true;
     }
 
+    //divide Ips into search threads
     private static void AllocateThreads(String FileOutput)
     {
         if (ThreadCount == 0)
@@ -217,6 +219,7 @@ public class ServerFinder
         return;
     }
 
+    //start the server list webpage hosted on localhost
     private static boolean StartHttpServer()
     {
         FoundServerPage = new ListServer();
@@ -228,6 +231,7 @@ public class ServerFinder
         return true;
     }
 
+    //wait for all threads to finish their work
     private static void WaitForThreads()
     {
         for (int i = 0; i < SearchThreads.size(); i++)

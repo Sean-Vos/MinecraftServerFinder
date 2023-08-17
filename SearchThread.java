@@ -10,6 +10,7 @@ public class SearchThread extends Thread
     private List<String> Ips;
     private String OutputFile;
 
+    //class constructor
     public SearchThread(List<String> SearchIps, String OutputFile_)
     {
         Ips = SearchIps;
@@ -17,12 +18,14 @@ public class SearchThread extends Thread
         return;
     }
 
+    //make a sycronized funtion to prevent printing two times on the same line
     private synchronized void Print(String Message)
     {
         System.out.println(Message);
         return;
     }
 
+    //get the found servers ip and add it to list file
     private synchronized void OutputFoundServer(String Ip, JSONObject JsonData)
     {
         ServerFinder.FoundServerIps.add(Ip);
@@ -60,6 +63,7 @@ public class SearchThread extends Thread
         return;
     }
 
+    //lifted from: https://gist.github.com/zh32/7190955
     public int readVarInt(DataInputStream in) throws IOException {
         int i = 0;
         int j = 0;
@@ -71,7 +75,8 @@ public class SearchThread extends Thread
         }
         return i;
     }
- 
+    
+    //lifted from: https://gist.github.com/zh32/7190955
     public void writeVarInt(DataOutputStream out, int paramInt) throws IOException {
         while (true) {
             if ((paramInt & 0xFFFFFF80) == 0) {
@@ -107,6 +112,8 @@ public class SearchThread extends Thread
             try 
             {
 
+                //lifted from: https://gist.github.com/zh32/7190955
+                //server status request format spec here: https://wiki.vg/Server_List_Ping
                 NetworkSocket.connect(TryAddress, 7000);
                 OutDataStream = NetworkSocket.getOutputStream();
                 dataOutputStream = new DataOutputStream(OutDataStream);

@@ -37,6 +37,7 @@ public class ListServer extends Thread
         return;
     }
 
+    //lifted from someware, if I find it again I will put the link here
     public static String insertString(
         String originalString,
         String stringToBeInserted,
@@ -64,6 +65,7 @@ public class ListServer extends Thread
         return newString;
     }
 
+    //class constructor
     public ListServer()
     {
         try
@@ -88,6 +90,7 @@ public class ListServer extends Thread
         return;
     }
 
+    //Handles and http get request from a client
     private static void HandleRequest(HttpExchange exchange) throws IOException
     {
         //update list
@@ -96,7 +99,8 @@ public class ListServer extends Thread
         List<String> Descriptions = new ArrayList<String>();
         List<Long> PlayerMaximums = new ArrayList<Long>();
         List<Long> PlayersOnline = new ArrayList<Long>();
-                
+        
+        //fetch found server information from serverfinder class
         for (int i = 0; i < ServerFinder.FoundServerIps.size(); i++)
         {
             Ip.add(ServerFinder.FoundServerIps.get(i));
@@ -237,6 +241,7 @@ public class ListServer extends Thread
             }
         }
 
+        //insert server information into the html response
         String NewDocument = BaseDocument;
         int DataTableStart = BaseDocument.indexOf("</tr>");
         String InsertData = "";
@@ -252,6 +257,7 @@ public class ListServer extends Thread
         }
         NewDocument = insertString(NewDocument, InsertData, DataTableStart + 6);
 
+        //send web page back to client
         exchange.sendResponseHeaders(200, NewDocument.getBytes().length);
         OutputStream OutStream = exchange.getResponseBody();
         OutStream.write(NewDocument.getBytes());
@@ -263,6 +269,7 @@ public class ListServer extends Thread
     {
         try
         {
+            //initalize http request handler
             HttpServer Server = HttpServer.create(new InetSocketAddress(80), 5);
             HttpContext Context = Server.createContext("/");
             Context.setHandler(ListServer::HandleRequest);
