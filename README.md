@@ -11,3 +11,5 @@ A ip rangle looks like this: `0.0.0.0-255.255.255.255` (don't use this, this is 
 You can get ip ranges of a specific area at [Super Ip](https://suip.biz)
 Next make sure that `List.html` is in the same directory as the `MinecraftServerFinder.jar` file.
 You can now run the jar file by running the following command in the command line: `java -jar MinecraftServerFinder.jar [Ip ranges file path] [output file path] [thread count as an non negative integer value]`
+
+While the program is searching for servers you can open your web browser and connect to localhost to view the current list of servers the program has found.
